@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using CustomTokenBasedAuthentication.Business.Contracts.Repositories;
+using CustomTokenBasedAuthentication.Business.Contracts.Services.Auth;
+using CustomTokenBasedAuthentication.Business.Repositories;
+using CustomTokenBasedAuthentication.Business.Services;
 using CustomTokenBasedAuthentication.Database.Context;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +33,10 @@ namespace CustomTokenBasedAuthentication
         {
             services.AddDbContext<UserDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DBCS")));
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddAutoMapper();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
