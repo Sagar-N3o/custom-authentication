@@ -18,10 +18,26 @@ namespace CustomTokenBasedAuthentication.Controllers
             _authService = authService;
         }
 
-        [HttpGet("login")]
-        public string abc()
+        [HttpPost("login")]
+        public ResponseDetails Login(LoginDTO model)
         {
-            return "Pikina";
+            ResponseDetails responseDetails = new ResponseDetails();
+
+            try
+            {
+                UserViewModel modelMapping = _authService.Login(model.Email, model.Password);
+
+                if (modelMapping == null)
+                    responseDetails = StaticHelpers.SetResponSeDetails(false, null, MessageType.Info, "Invalid login data.");
+
+                responseDetails = StaticHelpers.SetResponSeDetails(true, modelMapping, MessageType.Success, "Successfully logged in.");
+            }
+            catch(Exception ex)
+            {
+                responseDetails = StaticHelpers.SetResponSeDetails(false, ex, MessageType.Error);
+            }
+
+            return responseDetails;
         }
 
         [HttpPost("Register")]

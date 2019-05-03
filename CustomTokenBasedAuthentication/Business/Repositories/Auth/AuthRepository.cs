@@ -1,7 +1,7 @@
 ﻿using CustomTokenBasedAuthentication.Business.Contracts.Repositories.Auth;
 using CustomTokenBasedAuthentication.Database.Context;
 using CustomTokenBasedAuthentication.Database.Models;
-using System;
+using System.Linq;
 
 namespace CustomTokenBasedAuthentication.Business.Repositories.Auth
 {
@@ -14,9 +14,9 @@ namespace CustomTokenBasedAuthentication.Business.Repositories.Auth
             _context = context;
         }
 
-        public User Login(string email, Byte[] password)
+        public User Login(string email)
         {
-            throw new NotImplementedException();
+            return _context.Users.FirstOrDefault(user => user.Email == email);
         }
 
         public User Register(User user)
