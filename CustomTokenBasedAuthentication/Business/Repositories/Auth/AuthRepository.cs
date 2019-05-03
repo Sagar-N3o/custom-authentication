@@ -14,6 +14,11 @@ namespace CustomTokenBasedAuthentication.Business.Repositories.Auth
             _context = context;
         }
 
+        public bool EmailExists(string email)
+        {
+            return _context.Users.Where(user => user.Email == email).ToList().Count > 0;
+        }
+
         public User Login(string email)
         {
             return _context.Users.FirstOrDefault(user => user.Email == email);

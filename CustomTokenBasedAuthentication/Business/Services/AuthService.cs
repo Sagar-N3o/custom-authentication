@@ -33,6 +33,9 @@ namespace CustomTokenBasedAuthentication.Business.Services
 
         public UserViewModel Register(UserViewModel user, string password)
         {
+            if (_unitOfWork.AuthRepository.EmailExists(user.Email))
+                return null;
+
             StaticHelpers.CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
 
             User model = _mapper.Map<User>(user);

@@ -6,5 +6,6 @@ namespace CustomTokenBasedAuthentication.Business.Contracts.Repositories.Auth
     {
         User Register(User user);
         User Login(string email);
+        bool EmailExists(string email);
     }
 }
