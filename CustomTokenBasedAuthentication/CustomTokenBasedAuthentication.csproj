@@ -5,8 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Business\Contracts\Services\" />
+    <Folder Include="Business\Contracts\Repositories\" />
     <Folder Include="Business\Models\" />
-    <Folder Include="Business\Contracts\" />
+    <Folder Include="Business\Helpers\" />
+    <Folder Include="Business\Enums\" />
     <Folder Include="Business\Services\" />
     <Folder Include="Business\Repositories\" />
     <Folder Include="Database\Models\" />
