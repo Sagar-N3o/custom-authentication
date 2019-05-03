@@ -1,10 +1,16 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Business\Models\" />
+    <Folder Include="Business\Contracts\" />
+    <Folder Include="Business\Services\" />
+    <Folder Include="Business\Repositories\" />
+    <Folder Include="Database\Models\" />
+    <Folder Include="Database\DbContext\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
