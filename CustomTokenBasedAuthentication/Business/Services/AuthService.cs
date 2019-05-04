@@ -18,7 +18,7 @@ namespace CustomTokenBasedAuthentication.Business.Services
             _mapper = mapper;
         }
 
-        public UserViewModel Login(string email, string password)
+        public string Login(string email, string password)
         {
             User user = _unitOfWork.AuthRepository.Login(email);
 
@@ -28,7 +28,7 @@ namespace CustomTokenBasedAuthentication.Business.Services
             if (!StaticHelpers.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return null;
 
-            return _mapper.Map<UserViewModel>(user);
+            return StaticHelpers.EncryptToken(user.FirstName + "-" + user.Id);
         }
 
         public UserViewModel Register(UserViewModel user, string password)

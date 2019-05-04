@@ -23,12 +23,12 @@ namespace CustomTokenBasedAuthentication.Controllers
         {
             try
             {
-                UserViewModel modelMapping = _authService.Login(model.Email, model.Password);
+                string token = _authService.Login(model.Email, model.Password);
 
-                if (modelMapping == null)
+                if (token == null)
                     return  StaticHelpers.SetResponSeDetails(false, null, MessageType.Info, "Invalid login data.");
 
-                return StaticHelpers.SetResponSeDetails(true, modelMapping, MessageType.Success, "Successfully logged in.");
+                return StaticHelpers.SetResponSeDetails(true, token, MessageType.Success, "Successfully logged in.");
             }
             catch(Exception ex)
             {
@@ -39,6 +39,9 @@ namespace CustomTokenBasedAuthentication.Controllers
         [HttpPost("Register")]
         public ResponseDetails Register(UserViewModel model)
         {
+            var request = Request;
+
+            var token = request.Headers["Authorize"];
             try
             {
                 UserViewModel modelMapping = _authService.Register(model, model.Password);

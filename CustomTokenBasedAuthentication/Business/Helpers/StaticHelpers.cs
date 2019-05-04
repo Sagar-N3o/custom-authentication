@@ -1,5 +1,6 @@
 ﻿using CustomTokenBasedAuthentication.Business.Enums;
 using CustomTokenBasedAuthentication.Business.Models;
+using System;
 using System.Security.Cryptography;
 
 namespace CustomTokenBasedAuthentication.Business.Helpers
@@ -35,5 +36,38 @@ namespace CustomTokenBasedAuthentication.Business.Helpers
             }
             return true;
         }
+
+        public static string EncryptToken(string token)
+        {
+            char[] ans = new char[token.Length];
+
+            for (int i = 0; i < token.Length; i++)
+            {
+                int temp = GetASCIIValue(token[i]);
+                temp += i;
+
+                ans[i] = GetCharFromASCII(temp);
+            }
+            return new string(ans);
+        }
+
+        public static string DecryptToken(string token)
+        {
+            char[] ans = new char[token.Length];
+
+            for (int i = 0; i < token.Length; i++)
+            {
+                int temp = GetASCIIValue(token[i]);
+                temp -= i;
+                if (temp < 300 && temp > 0)
+                    ans[i] = GetCharFromASCII(temp);
+            }
+
+            return new string(ans);
+        }
+
+        private static char GetCharFromASCII(int ch) => Convert.ToChar(ch);
+
+        private static int GetASCIIValue(char ch) => Convert.ToInt32(ch);
     }
 }
