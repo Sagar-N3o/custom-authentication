@@ -39,9 +39,6 @@ namespace CustomTokenBasedAuthentication.Controllers
         [HttpPost("Register")]
         public ResponseDetails Register(UserViewModel model)
         {
-            var request = Request;
-
-            var token = request.Headers["Authorize"];
             try
             {
                 UserViewModel modelMapping = _authService.Register(model, model.Password);
